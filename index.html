@@ -1,3 +1,57 @@
-<body style="background-color: #A2D2FF; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif;">
-    <h1 style="color: white; font-size: 70px;">Zainab Ahmed</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zainab Ahmed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+        .cloud-box {
+            background: white;
+            padding: 60px 100px;
+            border-radius: 150px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 5px solid #f8fafc;
+            animation: dropIn 1.5s ease-out forwards, floatCloud 4s ease-in-out infinite alternate;
+            animation-delay: 0s, 1.5s;
+        }
+        h1 {
+            color: #2563eb;
+            font-family: 'Dancing Script', cursive;
+            font-size: 85px;
+            margin: 0;
+        }
+        p {
+            color: #64748b;
+            font-size: 22px;
+            margin-top: 5px;
+            font-weight: 300;
+        }
+        @keyframes dropIn {
+            0% { transform: translateY(-200px) scale(0.8); opacity: 0; }
+            70% { transform: translateY(20px) scale(1.02); opacity: 1; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        @keyframes floatCloud {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="cloud-box">
+        <h1>Zainab Ahmed</h1>
+        <p>Student Name</p> 
+    </div>
 </body>
+</html>

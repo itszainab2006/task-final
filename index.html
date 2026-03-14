@@ -1,112 +1,83 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Zainab Ahmed | 3D Dev</title>
-    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <title>Zainab Ahmed | 3D Tech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #0d1117; /* أسود المبرمجين العميق */
+            background-color: #050505; /* أسود أعمق */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'Major Mono Display', monospace;
+            font-family: 'Orbitron', sans-serif;
             overflow: hidden;
-            position: relative;
         }
 
-        /* رموز تسبح في الخلفية (Matrix style) */
-        .bg-matrix {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.15;
-            color: #00ff9d;
-            font-size: 20px;
-            animation: matrixMove 20s linear infinite;
-        }
-
-        /* حاوية الاسم المنحنية والمفتوحة */
-        .name-container {
-            background-color: #161b22;
+        /* الصندوق البرمجي بزوايا حادة */
+        .terminal-box {
+            background-color: #111;
             padding: 50px 80px;
-            /* زوايا منحنية وفتحة عصرية */
-            border-radius: 50px 20px 50px 20px;
-            box-shadow: 0 10px 50px rgba(0, 255, 157, 0.2);
-            z-index: 2;
+            border: 2px solid #00ff9d;
+            border-radius: 4px; /* زوايا حادة لستايل المبرمجين */
+            box-shadow: 0 0 40px rgba(0, 255, 157, 0.2);
             position: relative;
-            animation: floatContainer 5s ease-in-out infinite alternate;
         }
 
-        /* أزرار النافذة الملونة (أحمر، أصفر، أخضر) */
-        .dots {
-            position: absolute;
-            top: 20px; left: 25px;
-            display: flex; gap: 10px;
-        }
-        .dot { width: 15px; height: 15px; border-radius: 50%; }
-        .red { background: #ff5f56; }
-        .yellow { background: #ffbd2e; }
-        .green { background: #27c93f; }
-
-        /* تأثير الاسم ثلاثي الأبعاد القوي */
-        .name-3d {
-            font-size: 90px;
-            color: #00ff9d; /* الأخضر الفسفوري للواجهة */
+        /* تأثير الاسم حرف بحرف مع مكعبات */
+        .typing-name {
+            color: #00ff9d;
+            font-size: 75px;
             margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            /* سر المكعبات: طبقات متعددة من الظلال */
+            white-space: nowrap;
+            overflow: hidden;
+            display: block;
+            /* تأثير الـ 3D المكعب */
             text-shadow: 
-                0 1px 0 #00bf75,
-                0 2px 0 #00bf75,
-                0 3px 0 #00bf75,
-                0 4px 0 #00bf75,
-                0 5px 0 #00bf75,
-                0 6px 1px rgba(0,0,0,.1),
-                0 0 5px rgba(0,0,0,.1),
-                0 1px 3px rgba(0,0,0,.3),
-                0 3px 5px rgba(0,0,0,.2),
-                0 5px 10px rgba(0,0,0,.25),
-                0 10px 10px rgba(0,0,0,.2),
-                0 20px 20px rgba(0,0,0,.15);
+                3px 3px 0px #005f3a,
+                5px 5px 0px #003320;
+            /* أنيميشن الكتابة */
+            width: 0;
+            border-right: 4px solid #00ff9d;
+            animation: typing 3s steps(12, end) forwards, blink 0.7s infinite;
         }
 
-        /* حركات الأنيميشن */
-        @keyframes floatContainer {
-            from { transform: translateY(0); }
-            to { transform: translateY(-30px); }
+        /* حركة الرموز البرمجية في الخلفية بنعومة */
+        .bg-code {
+            position: absolute;
+            color: #00ff9d;
+            opacity: 0.05;
+            font-size: 14px;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            line-height: 1.5;
+            padding: 10px;
         }
 
-        @keyframes matrixMove {
-            from { background-position: 0 0; }
-            to { background-position: 0 100vh; }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-matrix">
-        0101010101010101010101010101010101010101010101010101010101010101010101010101010101
-        <br>
-        0110101100011110011011101101100010111110110110101010010101101011101011001100101101
-        <br>
-        1010111101011011010001001110101001011110011010110110100111111101111010110110001101
+    <div class="bg-code">
+        const dev = "Zainab Ahmed"; <br>
+        while(true) { coding(); } <br>
+        01010101010101010101 <br>
+        system.execute(dream);
     </div>
 
-    <div class="name-container">
-        <div class="dots">
-            <div class="dot red"></div>
-            <div class="dot yellow"></div>
-            <div class="dot green"></div>
-        </div>
-        <div class="name-3d">
-            Zainab Ahmed
-        </div>
+    <div class="terminal-box">
+        <h1 class="typing-name">ZAINAB AHMED</h1>
     </div>
 
 </body>

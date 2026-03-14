@@ -1,104 +1,111 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Zainab Ahmed | Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <title>Zainab Ahmed | 3D Dev</title>
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #0d1117; /* أسود المبرمجين (GitHub Dark) */
+            background-color: #0d1117; /* أسود المبرمجين العميق */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Major Mono Display', monospace;
             overflow: hidden;
-            color: #00ff9d; /* الأخضر البرمجي */
+            position: relative;
         }
 
-        /* رموز تسبح في الخلفية */
-        .bg-symbols {
+        /* رموز تسبح في الخلفية (Matrix style) */
+        .bg-matrix {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             z-index: 1;
-            opacity: 0.1;
+            opacity: 0.15;
+            color: #00ff9d;
             font-size: 20px;
+            animation: matrixMove 20s linear infinite;
         }
 
-        /* صندوق البرمجة (Terminal) */
-        .terminal {
+        /* حاوية الاسم المنحنية والمفتوحة */
+        .name-container {
             background-color: #161b22;
-            border: 2px solid #30363d;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 0 30px rgba(0, 255, 157, 0.1);
+            padding: 50px 80px;
+            /* زوايا منحنية وفتحة عصرية */
+            border-radius: 50px 20px 50px 20px;
+            box-shadow: 0 10px 50px rgba(0, 255, 157, 0.2);
             z-index: 2;
             position: relative;
+            animation: floatContainer 5s ease-in-out infinite alternate;
         }
 
-        /* أزرار النافذة (أحمر، أصفر، أخضر) */
+        /* أزرار النافذة الملونة (أحمر، أصفر، أخضر) */
         .dots {
             position: absolute;
-            top: 15px; left: 15px;
-            display: flex; gap: 8px;
+            top: 20px; left: 25px;
+            display: flex; gap: 10px;
         }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot { width: 15px; height: 15px; border-radius: 50%; }
         .red { background: #ff5f56; }
         .yellow { background: #ffbd2e; }
         .green { background: #27c93f; }
 
-        .code-text {
-            font-size: 60px;
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 3px solid #00ff9d;
-            width: 0;
-            animation: typing 3s steps(12, end) forwards, blink 0.7s infinite;
+        /* تأثير الاسم ثلاثي الأبعاد القوي */
+        .name-3d {
+            font-size: 90px;
+            color: #00ff9d; /* الأخضر الفسفوري للواجهة */
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            /* سر المكعبات: طبقات متعددة من الظلال */
+            text-shadow: 
+                0 1px 0 #00bf75,
+                0 2px 0 #00bf75,
+                0 3px 0 #00bf75,
+                0 4px 0 #00bf75,
+                0 5px 0 #00bf75,
+                0 6px 1px rgba(0,0,0,.1),
+                0 0 5px rgba(0,0,0,.1),
+                0 1px 3px rgba(0,0,0,.3),
+                0 3px 5px rgba(0,0,0,.2),
+                0 5px 10px rgba(0,0,0,.25),
+                0 10px 10px rgba(0,0,0,.2),
+                0 20px 20px rgba(0,0,0,.15);
         }
 
-        .tag { color: #58a6ff; } /* أزرق برمجيات */
-        .bracket { color: #d29922; } /* برتقالي برمجيات */
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+        /* حركات الأنيميشن */
+        @keyframes floatContainer {
+            from { transform: translateY(0); }
+            to { transform: translateY(-30px); }
         }
 
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-
-        /* حركة الرموز في الخلفية */
-        .float-symbol {
-            position: absolute;
-            animation: moveAround 20s linear infinite;
-        }
-
-        @keyframes moveAround {
-            from { transform: translateY(100vh) rotate(0deg); }
-            to { transform: translateY(-10vh) rotate(360deg); }
+        @keyframes matrixMove {
+            from { background-position: 0 0; }
+            to { background-position: 0 100vh; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-symbols">
-        <span class="float-symbol" style="left: 10%; animation-delay: 0s;">{ }</span>
-        <span class="float-symbol" style="left: 30%; animation-delay: 5s;">&lt;/&gt;</span>
-        <span class="float-symbol" style="left: 60%; animation-delay: 2s;">01</span>
-        <span class="float-symbol" style="left: 80%; animation-delay: 8s;">[ ]</span>
+    <div class="bg-matrix">
+        0101010101010101010101010101010101010101010101010101010101010101010101010101010101
+        <br>
+        0110101100011110011011101101100010111110110110101010010101101011101011001100101101
+        <br>
+        1010111101011011010001001110101001011110011010110110100111111101111010110110001101
     </div>
 
-    <div class="terminal">
+    <div class="name-container">
         <div class="dots">
             <div class="dot red"></div>
             <div class="dot yellow"></div>
             <div class="dot green"></div>
         </div>
-        <div class="code-text">
-            <span class="bracket">&lt;</span><span class="tag">Zainab Ahmed</span><span class="bracket"> /&gt;</span>
+        <div class="name-3d">
+            Zainab Ahmed
         </div>
     </div>
 

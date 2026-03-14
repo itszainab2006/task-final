@@ -1,101 +1,118 @@
- <!DOCTYPE html>
+[14/03/2026 09:20 م] 𝗝𝗨𝗦𝗧 𝗪𝗢𝗥𝗗𝗦 📜.: <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zainab Ahmed | AI Logic</title>
+    <title>ZAINAB AHMED | AI INTERFACE</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
+        /* الأساسيات واللون النيوني */
         body {
             background-color: #010410;
             margin: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             font-family: 'Orbitron', sans-serif;
-            color: #00f2ff;
         }
 
-        /* رسوم الذكاء الاصطناعي (الدوائر والخطوط الدقيقة) */
-        .ai-elements {
+        /* --- رسوم صورة الذكاء الاصطناعي (AI Graphics) --- */
+        .ai-circuit-bg {
             position: absolute;
             inset: 0;
-            pointer-events: none;
-            opacity: 0.4;
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.1) 0%, transparent 60%),
-                repeating-linear-gradient(rgba(0, 242, 255, 0.03) 0px, rgba(0, 242, 255, 0.03) 1px, transparent 1px, transparent 30px);
+            background: 
+                radial-gradient(circle at center, rgba(0, 242, 255, 0.15) 0%, transparent 70%),
+                linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            opacity: 0.6;
         }
 
-        .hud-circle {
+        /* الإطارات والدوائر المتحركة */
+        .hud-container {
             position: absolute;
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            border-radius: 50%;
-            animation: spin 10s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        /* دوائر تشبه الصورة */
-        .c1 { width: 280px; height: 280px; border-top: 3px solid #00f2ff; box-shadow: 0 0 15px #00f2ff; }
-        .c2 { width: 310px; height: 310px; border-right: 2px dashed #bf00ff; animation-duration: 15s; }
 
-        /* شاشة الدخول */
-        #boot {
+        .ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+
+        .r1 { width: 300px; height: 300px; border-top: 4px solid #00f2ff; animation: rotate 6s linear infinite; box-shadow: 0 0 20px rgba(0, 242, 255, 0.4); }
+        .r2 { width: 340px; height: 340px; border-left: 2px dashed #bf00ff; animation: rotate 12s linear infinite reverse; }
+        
+        /* نقاط البيانات (مثل الصورة) */
+        .dots {
+            position: absolute;
+            width: 360px; height: 360px;
+            background: radial-gradient(#00f2ff 1px, transparent 1px);
+            background-size: 20px 20px;
+            mask-image: radial-gradient(circle, white, transparent 70%);
+            opacity: 0.3;
+        }
+
+        /* --- دخولية المبرمجين --- */
+        #loader {
             position: fixed; inset: 0; background: #010410; z-index: 100;
             display: flex; align-items: center; justify-content: center;
-            animation: fadeOut 0.5s 1.5s forwards;
+            color: #00f2ff; font-size: 12px; letter-spacing: 4px;
+            animation: fadeOut 0.5s 1.8s forwards;
         }
 
-        /* حاوية الاسم - محسنة للموبايل */
-        .name-container {
+        /* --- الاسم 3D والنبض (محسن للموبايل) --- */
+        .name-box {
             position: relative;
             z-index: 10;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 8px; /* تقليل المسافة ليناسب العرض */
-            width: 90%; /* لضمان عدم خروجه من الشاشة */
+            gap: 5px; /* تقليل الفراغ ليناسب التليفون */
+            padding: 0 10px;
         }
 
-        /* الاسم 3D ونبض */
         .char {
-            font-size: clamp(28px, 7vw, 60px); /* تصغير الخط ليظهر كاملاً في التليفون */
+            color: #00f2ff;
+            /* حجم الخط ذكي: يصغر في الموبايل ويكبر في الكمبيوتر */
+            font-size: clamp(26px, 7.5vw, 75px);
+            font-weight: 900;
             text-transform: uppercase;
-            text-shadow: 2px 2px 0 #005f66, 4px 4px 0 #00333d, 0 0 15px rgba(0,242,255,0.6);
-            opacity: 0; transform: scale(0);
-            animation: pulseIn 0.6s cubic-bezier(0.17, 0.88, 0.32, 1.2) forwards;
+            /* تأثير الـ 3D الحقيقي */
+            text-shadow: 
+                2px 2px 0 #005f66, 
+                4px 4px 0 #00333d, 
+                0 0 20px rgba(0, 242, 255, 0.8);
+            opacity: 0;
+            transform: scale(0);
+            animation: pulseBurst 0.6s cubic-bezier(0.17, 0.88, 0.32, 1.2) forwards;
         }
 
-        /* توقيت الحروف */
-        .char:nth-child(n) { animation-delay: calc(1.6s + (0.1s * var(--i))); }
+        /* توقيت الحروف ليظهر النبض من الوسط */
+        .char:nth-child(n) { animation-delay: calc(1.9s + (0.08s * var(--i))); }
 
-        @keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+        @keyframes rotate { from { transform: rotate(0); } to { transform: rotate(360deg); } }
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-        @keyframes pulseIn { to { opacity: 1; transform: scale(1); } }
+        @keyframes pulseBurst { to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <div id="boot">INITIALIZING AI_CORE...</div>
+    <div id="loader">NEURAL_LINK_ESTABLISHED...</div>
 
-    <div class="ai-elements"></div>
-    <div class="hud-circle c1"></div>
-    <div class="hud-circle c2"></div>
-
-    <div class="name-container">
-        <span class="char" style="--i:1">Z</span>
-        <span class="char" style="--i:2">A</span>
-        <span class="char" style="--i:3">I</span>
-        <span class="char" style="--i:4">N</span>
-        <span class="char" style="--i:5">A</span>
-        <span class="char" style="--i:6">B</span>
-        <span style="width:10px"></span>
-        <span class="char" style="--i:7">A</span>
-        <span class="char" style="--i:8">H</span>
-        <span class="char" style="--i:9">M</span>
-        <span class="char" style="--i:10">E</span>
-        <span class="char" style="--i:11">D</span>
+    <div class="ai-circuit-bg"></div>
+    <div class="hud-container">
+        <div class="dots"></div>
+        <div class="ring r1"></div>
+        <div class="ring r2"></div>
+    </div>
+[14/03/2026 09:20 م] 𝗝𝗨𝗦𝗧 𝗪𝗢𝗥𝗗𝗦 📜.: <div class="name-box">
+        <span class="char" style="--i:1">Z</span><span class="char" style="--i:2">A</span><span class="char" style="--i:3">I</span><span class="char" style="--i:4">N</span><span class="char" style="--i:5">A</span><span class="char" style="--i:6">B</span>
+        <span style="width:12px"></span> <span class="char" style="--i:7">A</span><span class="char" style="--i:8">H</span><span class="char" style="--i:9">M</span><span class="char" style="--i:10">E</span><span class="char" style="--i:11">D</span>
     </div>
 
 </body>

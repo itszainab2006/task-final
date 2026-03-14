@@ -1,207 +1,48 @@
-/* Character Delays (Starts after Intro) */
-        .char:nth-child(1) { animation-delay: 3.6s; }
-        .char:nth-child(2) { animation-delay: 3.7s; }
-        .char:nth-child(3) { animation-delay: 3.8s; }
-        .char:nth-child(4) { animation-delay: 3.9s; }
-        .char:nth-child(5) { animation-delay: 4.0s; }
-        .char:nth-child(6) { animation-delay: 4.1s; }
-        .char:nth-child(7) { animation-delay: 4.2s; } /* Space */
-        .char:nth-child(8) { animation-delay: 4.3s; }
-        .char:nth-child(9) { animation-delay: 4.4s; }
-        .char:nth-child(10) { animation-delay: 4.5s; }
-        .char:nth-child(11) { animation-delay: 4.6s; }
-        .char:nth-child(12) { animation-delay: 4.7s; }
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zainab Ahmed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
+    <style>
+        body { background: #010410; color: #00f2ff; font-family: 'Orbitron', sans-serif; margin: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; }
 
-        @keyframes fadeIn { to { opacity: 1; } }
+        /* شاشة الدخول السريعة */
+        #intro { position: fixed; inset: 0; background: #010410; z-index: 100; display: flex; align-items: center; justify-content: center; animation: fadeOut 0.5s 1.5s forwards; }
+        .loading { border: 2px solid #00f2ff; padding: 10px 20px; animation: blink 0.5s infinite; }
 
-        /* --- 5. SYSTEM LOGS --- */
-        .logs {
-            position: absolute;
-            bottom: 30px; left: 30px;
-            font-family: monospace;
-            font-size: 10px;
-            color: rgba(0, 242, 255, 0.3);
-            z-index: 10;
+        .name-container { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        
+        /* الاسم 3D ونبض من الوسط */
+        .char { 
+            font-size: clamp(40px, 10vw, 80px); opacity: 0; transform: scale(0);
+            text-shadow: 2px 2px 0 #005f66, 4px 4px 0 #00333d, 0 0 20px rgba(0,242,255,0.5);
+            animation: pulse 0.6s cubic-bezier(0.17, 0.88, 0.32, 1.27) forwards;
         }
 
+        /* توقيت الحروف بعد الدخولية */
+        .char:nth-child(1) { animation-delay: 1.6s; } .char:nth-child(2) { animation-delay: 1.7s; }
+        .char:nth-child(3) { animation-delay: 1.8s; } .char:nth-child(4) { animation-delay: 1.9s; }
+        .char:nth-child(5) { animation-delay: 2.0s; } .char:nth-child(6) { animation-delay: 2.1s; }
+        .char:nth-child(8) { animation-delay: 2.2s; } .char:nth-child(9) { animation-delay: 2.3s; }
+        .char:nth-child(10) { animation-delay: 2.4s; } .char:nth-child(11) { animation-delay: 2.5s; }
+        .char:nth-child(12) { animation-delay: 2.6s; }
+
+        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+        @keyframes blink { 50% { opacity: 0; } }
+        @keyframes pulse { to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <div id="intro-overlay">
-        <div class="loader-text" id="status-text">INITIALIZING SYSTEM...</div>
-        <div class="loader-bar-container">
-            <div class="loader-bar-fill"></div>
-        </div>
+    <div id="intro"><div class="loading">SYSTEM LOADING...</div></div>
+
+    <div class="name-container">
+        <span class="char">Z</span><span class="char">A</span><span class="char">I</span><span class="char">N</span><span class="char">A</span><span class="char">B</span>
+        <span style="width:20px"></span>
+        <span class="char">A</span><span class="char">H</span><span class="char">M</span><span class="char">E</span><span class="char">D</span>
     </div>
-
-    <canvas id="matrix-canvas"></canvas>
-    
-    <div class="hud-frame">
-        <div class="corner tl"></div> <div class="corner tr"></div>
-        <div class="corner bl"></div> <div class="corner br"></div>
-    </div>
-
-    <main class="main-stage">
-        <div class="name-container" id="nameBox"></div>
-    </main>
-
-    <div class="logs" id="logBox">>> READY_STATE: ACTIVE</div>
-
-    <script>
-        // Matrix Background Logic
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const drops = Array(Math.floor(canvas.width/20)).fill(1);
-        function draw() {
-            ctx.fillStyle = "rgba(1, 4, 16, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#00f2ff";
-            drops.forEach((y, i) => {
-                const text = String.fromCharCode(Math.random() * 128);
-                ctx.fillText(text, i*20, y*20);
-                if(y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            });
-        }
-        setInterval(draw, 40);
-
-        // Intro Sequence Handling
-        const statusText = document.getElementById('status-text');
-        const phases = ["SCANNING BIOMETRICS...", "DECRYPTING ASSETS...", "ACCESS GRANTED!"];
-        let p = 0;
-        const interval = setInterval(() => {
-            statusText.innerText = phases[p];
-            p++;
-            if(p >= phases.length) clearInterval(interval);
-        }, 1000);
-
-        setTimeout(() => {
-            document.getElementById('intro-overlay').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('intro-overlay').style.display = 'none';
-            }, 1000);
-        }, 3200);
-
-        // Name Generation
-        const nameText = "ZAINAB AHMED";
-        const box = document.getElementById('nameBox');
-        nameText.split('').forEach(char => {
-            const span = document.createElement('span');
-            span.className = 'char';
-            span.innerHTML = char === ' ' ? '&nbsp;' : char;
-            if(char === ' ') span.style.width = "20px";
-            box.appendChild(span);
-        });
-
-        // Extra Documentation for 400+ Line Support
-        // [Add more functions, comments, and logic here]
-    </script>
-
-</body>/* Character Delays (Starts after Intro) */
-        .char:nth-child(1) { animation-delay: 3.6s; }
-        .char:nth-child(2) { animation-delay: 3.7s; }
-        .char:nth-child(3) { animation-delay: 3.8s; }
-        .char:nth-child(4) { animation-delay: 3.9s; }
-        .char:nth-child(5) { animation-delay: 4.0s; }
-        .char:nth-child(6) { animation-delay: 4.1s; }
-        .char:nth-child(7) { animation-delay: 4.2s; } /* Space */
-        .char:nth-child(8) { animation-delay: 4.3s; }
-        .char:nth-child(9) { animation-delay: 4.4s; }
-        .char:nth-child(10) { animation-delay: 4.5s; }
-        .char:nth-child(11) { animation-delay: 4.6s; }
-        .char:nth-child(12) { animation-delay: 4.7s; }
-
-        @keyframes fadeIn { to { opacity: 1; } }
-
-        /* --- 5. SYSTEM LOGS --- */
-        .logs {
-            position: absolute;
-            bottom: 30px; left: 30px;
-            font-family: monospace;
-            font-size: 10px;
-            color: rgba(0, 242, 255, 0.3);
-            z-index: 10;
-        }
-
-    </style>
-</head>
-<body>
-
-    <div id="intro-overlay">
-        <div class="loader-text" id="status-text">INITIALIZING SYSTEM...</div>
-        <div class="loader-bar-container">
-            <div class="loader-bar-fill"></div>
-        </div>
-    </div>
-
-    <canvas id="matrix-canvas"></canvas>
-    
-    <div class="hud-frame">
-        <div class="corner tl"></div> <div class="corner tr"></div>
-        <div class="corner bl"></div> <div class="corner br"></div>
-    </div>
-
-    <main class="main-stage">
-        <div class="name-container" id="nameBox"></div>
-    </main>
-
-    <div class="logs" id="logBox">>> READY_STATE: ACTIVE</div>
-
-    <script>
-        // Matrix Background Logic
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const drops = Array(Math.floor(canvas.width/20)).fill(1);
-        function draw() {
-            ctx.fillStyle = "rgba(1, 4, 16, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#00f2ff";
-            drops.forEach((y, i) => {
-                const text = String.fromCharCode(Math.random() * 128);
-                ctx.fillText(text, i*20, y*20);
-                if(y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            });
-        }
-        setInterval(draw, 40);
-
-        // Intro Sequence Handling
-        const statusText = document.getElementById('status-text');
-        const phases = ["SCANNING BIOMETRICS...", "DECRYPTING ASSETS...", "ACCESS GRANTED!"];
-        let p = 0;
-        const interval = setInterval(() => {
-            statusText.innerText = phases[p];
-            p++;
-            if(p >= phases.length) clearInterval(interval);
-        }, 1000);
-
-        setTimeout(() => {
-            document.getElementById('intro-overlay').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('intro-overlay').style.display = 'none';
-            }, 1000);
-        }, 3200);
-
-        // Name Generation
-        const nameText = "ZAINAB AHMED";
-        const box = document.getElementById('nameBox');
-        nameText.split('').forEach(char => {
-            const span = document.createElement('span');
-            span.className = 'char';
-            span.innerHTML = char === ' ' ? '&nbsp;' : char;
-            if(char === ' ') span.style.width = "20px";
-            box.appendChild(span);
-        });
-
-        // Extra Documentation for 400+ Line Support
-        // [Add more functions, comments, and logic here]
-    </script>
 
 </body>
-</html>
 </html>

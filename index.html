@@ -1,12 +1,12 @@
-[14/03/2026 09:20 م] 𝗝𝗨𝗦𝗧 𝗪𝗢𝗥𝗗𝗦 📜.: <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAINAB AHMED | AI INTERFACE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ZAINAB AHMED</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
-        /* الأساسيات واللون النيوني */
+        /* إعدادات الخلفية والرسوم التقنية */
         body {
             background-color: #010410;
             margin: 0;
@@ -16,103 +16,93 @@
             align-items: center;
             overflow: hidden;
             font-family: 'Orbitron', sans-serif;
+            color: #00f2ff;
         }
 
-        /* --- رسوم صورة الذكاء الاصطناعي (AI Graphics) --- */
-        .ai-circuit-bg {
+        /* رسوم الذكاء الاصطناعي (الخلفية النيونية) */
+        .ai-circuit {
             position: absolute;
             inset: 0;
             background: 
                 radial-gradient(circle at center, rgba(0, 242, 255, 0.15) 0%, transparent 70%),
-                linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
-            background-size: 100% 100%, 30px 30px, 30px 30px;
-            opacity: 0.6;
+                repeating-linear-gradient(rgba(0, 242, 255, 0.05) 0px, rgba(0, 242, 255, 0.05) 1px, transparent 1px, transparent 30px);
+            z-index: 1;
         }
 
-        /* الإطارات والدوائر المتحركة */
-        .hud-container {
-            position: absolute;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .ring {
+        /* الدوائر المتحركة حول الاسم */
+        .hud-ring {
             position: absolute;
             border-radius: 50%;
             border: 1px solid rgba(0, 242, 255, 0.2);
+            z-index: 2;
         }
+        .inner { width: 260px; height: 260px; border-top: 3px solid #00f2ff; animation: rotate 6s linear infinite; box-shadow: 0 0 20px rgba(0, 242, 255, 0.4); }
+        .outer { width: 310px; height: 310px; border-left: 2px dashed #bf00ff; animation: rotate 10s linear infinite reverse; }
 
-        .r1 { width: 300px; height: 300px; border-top: 4px solid #00f2ff; animation: rotate 6s linear infinite; box-shadow: 0 0 20px rgba(0, 242, 255, 0.4); }
-        .r2 { width: 340px; height: 340px; border-left: 2px dashed #bf00ff; animation: rotate 12s linear infinite reverse; }
-        
-        /* نقاط البيانات (مثل الصورة) */
-        .dots {
-            position: absolute;
-            width: 360px; height: 360px;
-            background: radial-gradient(#00f2ff 1px, transparent 1px);
-            background-size: 20px 20px;
-            mask-image: radial-gradient(circle, white, transparent 70%);
-            opacity: 0.3;
-        }
-
-        /* --- دخولية المبرمجين --- */
-        #loader {
+        /* شاشة دخول مبرمجين سريعة جداً */
+        #boot-screen {
             position: fixed; inset: 0; background: #010410; z-index: 100;
             display: flex; align-items: center; justify-content: center;
-            color: #00f2ff; font-size: 12px; letter-spacing: 4px;
-            animation: fadeOut 0.5s 1.8s forwards;
+            animation: fadeOut 0.4s 1.5s forwards;
         }
+        .boot-msg { letter-spacing: 5px; font-size: 10px; animation: flash 0.3s infinite; }
 
-        /* --- الاسم 3D والنبض (محسن للموبايل) --- */
-        .name-box {
+        /* حاوية الاسم - التعديل الأساسي للتليفون */
+        .name-container {
             position: relative;
             z-index: 10;
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* يسمح للاسم بالنزول لسطر ثاني إذا كان التليفون صغيراً جداً */
             justify-content: center;
-            gap: 5px; /* تقليل الفراغ ليناسب التليفون */
-            padding: 0 10px;
+            align-items: center;
+            width: 95%; /* لضمان عدم ملامسة حواف الشاشة */
+            gap: 4px; 
         }
 
+        /* الاسم 3D ونبض */
         .char {
-            color: #00f2ff;
-            /* حجم الخط ذكي: يصغر في الموبايل ويكبر في الكمبيوتر */
-            font-size: clamp(26px, 7.5vw, 75px);
+            /* حجم خط مرن جداً ليناسب الموبايل الصغير والكبير */
+            font-size: clamp(24px, 7.8vw, 65px); 
             font-weight: 900;
             text-transform: uppercase;
-            /* تأثير الـ 3D الحقيقي */
             text-shadow: 
                 2px 2px 0 #005f66, 
                 4px 4px 0 #00333d, 
                 0 0 20px rgba(0, 242, 255, 0.8);
             opacity: 0;
             transform: scale(0);
-            animation: pulseBurst 0.6s cubic-bezier(0.17, 0.88, 0.32, 1.2) forwards;
+            animation: pulseIn 0.6s cubic-bezier(0.17, 0.88, 0.32, 1.2) forwards;
         }
 
-        /* توقيت الحروف ليظهر النبض من الوسط */
-        .char:nth-child(n) { animation-delay: calc(1.9s + (0.08s * var(--i))); }
+        /* تسلسل نبض الحروف */
+        .char:nth-child(n) { animation-delay: calc(1.6s + (0.07s * var(--i))); }
 
         @keyframes rotate { from { transform: rotate(0); } to { transform: rotate(360deg); } }
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-        @keyframes pulseBurst { to { opacity: 1; transform: scale(1); } }
+        @keyframes flash { 50% { opacity: 0; } }
+        @keyframes pulseIn { to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <div id="loader">NEURAL_LINK_ESTABLISHED...</div>
+    <div id="boot-screen"><div class="boot-msg">CORE_INTERFACE_ONLINE</div></div>
 
-    <div class="ai-circuit-bg"></div>
-    <div class="hud-container">
-        <div class="dots"></div>
-        <div class="ring r1"></div>
-        <div class="ring r2"></div>
-    </div>
-[14/03/2026 09:20 م] 𝗝𝗨𝗦𝗧 𝗪𝗢𝗥𝗗𝗦 📜.: <div class="name-box">
-        <span class="char" style="--i:1">Z</span><span class="char" style="--i:2">A</span><span class="char" style="--i:3">I</span><span class="char" style="--i:4">N</span><span class="char" style="--i:5">A</span><span class="char" style="--i:6">B</span>
-        <span style="width:12px"></span> <span class="char" style="--i:7">A</span><span class="char" style="--i:8">H</span><span class="char" style="--i:9">M</span><span class="char" style="--i:10">E</span><span class="char" style="--i:11">D</span>
+    <div class="ai-circuit"></div>
+    <div class="hud-ring inner"></div>
+    <div class="hud-ring outer"></div>
+
+    <div class="name-container">
+        <span class="char" style="--i:1">Z</span>
+        <span class="char" style="--i:2">A</span>
+        <span class="char" style="--i:3">I</span>
+        <span class="char" style="--i:4">N</span>
+        <span class="char" style="--i:5">A</span>
+ <span class="char" style="--i:6">B</span>
+        <span style="width:10px"></span> <span class="char" style="--i:7">A</span>
+        <span class="char" style="--i:8">H</span>
+        <span class="char" style="--i:9">M</span>
+        <span class="char" style="--i:10">E</span>
+        <span class="char" style="--i:11">D</span>
     </div>
 
 </body>
